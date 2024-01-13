@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TodolistAppAvalonia.ViewModels"
+             xmlns:local="using:TodolistAppAvalonia.Views"
+             xmlns:todo="using:TodolistAppAvalonia"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+             x:Class="TodolistAppAvalonia.Views.TodoListView"
+             x:DataType="vm:TodoListViewModel"
+             >
+  <DockPanel>
+    
+    <Button DockPanel.Dock="Bottom"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            x:CompileBindings="False"
+            Command="{Binding $parent[Window].DataContext.AddItem}"
+            Classes="theme-solid accent"
+            Cursor="Hand">Add Item</Button>
+    
+    <ItemsControl ItemsSource="{Binding ListItems}" Margin="5">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Grid ColumnDefinitions="*, auto" Margin="4">
+            <StackPanel Orientation="Horizontal">
+              <CheckBox
+                      Classes="theme-solid accent"
+                      IsChecked="{Binding isChecked}"
+                      Content="{Binding Description}"
+                    />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+              <Button Classes="theme-outline accent" Command="{Binding $parent[Window].DataContext.EditItem}" CommandParameter="{Binding Description}" x:CompileBindings="False" Content="Edit" Cursor="Hand"/>
+              <Button Classes="theme-outline danger" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.Delete}" CommandParameter="{Binding id}" x:CompileBindings="False" Content="Delete" Cursor="Hand" Margin="5 0 0 0"/>
+            </StackPanel>
+          </Grid>
+
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </DockPanel>
+</UserControl>

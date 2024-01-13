@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TodolistAppAvalonia.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:actipro="http://schemas.actiprosoftware.com/avaloniaui"
+        mc:Ignorable="d" Width="600" Height="450"
+        x:Class="TodolistAppAvalonia.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Title="Avalonia Todo List">
+  <DockPanel>
+    <actipro:ChromedTitleBar DockPanel.Dock="Top">
+      <actipro:ChromedTitleBar.Resources>
+        <actipro:ComparisonConverter x:Key="RightContentMarginConverter">
+          <actipro:ComparisonConverter.TrueResult>
+            <Thickness>0,0,20,0</Thickness>
+          </actipro:ComparisonConverter.TrueResult>
+          <actipro:ComparisonConverter.FalseResult>
+            <Thickness>0,0,0,0</Thickness>
+          </actipro:ComparisonConverter.FalseResult>
+        </actipro:ComparisonConverter>
+      </actipro:ChromedTitleBar.Resources>
+
+      <actipro:ChromedTitleBar.LeftContent>
+        <StackPanel Orientation="Horizontal">
+          <Button x:Name="applicationButton" Margin="0,0,20,0"
+                  ContentTemplate="{actipro:GlyphTemplate Menu16}"
+                  Theme="{actipro:ControlTheme TitleBarButton}"
+                  ToolTip.Tip="Toggle Sidebar" />
+
+          <StackPanel Margin="10,7,0,7" VerticalAlignment="Center" IsHitTestVisible="False">
+            <TextBlock Text="Avalonia x Actipro" FontSize="12" TextTrimming="CharacterEllipsis" Opacity="0.85" />
+            <TextBlock Margin="0,-2,0,0" Text="Simple Todolist" FontSize="18" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+          </StackPanel>
+        </StackPanel>
+      </actipro:ChromedTitleBar.LeftContent>
+    </actipro:ChromedTitleBar>
+    
+    <ContentControl Content="{Binding Content}"/>
+  </DockPanel>
+</Window>
