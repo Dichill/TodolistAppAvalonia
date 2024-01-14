@@ -32,7 +32,7 @@
                   ToolTip.Tip="Toggle Sidebar" />
 
           <StackPanel Margin="10,7,0,7" VerticalAlignment="Center" IsHitTestVisible="False">
-            <TextBlock Text="Avalonia x Actipro" FontSize="12" TextTrimming="CharacterEllipsis" Opacity="0.85" />
+            <TextBlock Text="Avalonia" FontSize="12" TextTrimming="CharacterEllipsis" Opacity="0.85" />
             <TextBlock Margin="0,-2,0,0" Text="Simple Todolist" FontSize="18" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
           </StackPanel>
         </StackPanel>

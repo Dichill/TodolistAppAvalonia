@@ -8,6 +8,7 @@ using System.Reactive;
 using MsBox.Avalonia.ViewModels.Commands;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Collections.ObjectModel;
 
 namespace TodolistAppAvalonia.ViewModels
 {
@@ -15,12 +16,18 @@ namespace TodolistAppAvalonia.ViewModels
     {
         ViewModelBase content;
 
+        private ObservableCollection<string> _pdfPages;
         public MainWindowViewModel()
         {
             var db = new TodoListService();
             Content = List = new TodoListViewModel(db.GetItems());
         }
 
+        public ObservableCollection<string> PdfPages
+        {
+            get => _pdfPages;
+            private set => this.RaiseAndSetIfChanged(ref _pdfPages, value);
+        }
         public ViewModelBase Content
         {
             get => content;
@@ -31,6 +38,7 @@ namespace TodolistAppAvalonia.ViewModels
         public void AddItem()
         {
             var vm = new AddItemViewModel();
+            var db = new TodoListService();
 
             Observable.Merge(
                 vm.Ok,
@@ -45,6 +53,9 @@ namespace TodolistAppAvalonia.ViewModels
                     }
 
                     Content = List;
+                    if (model == null) return;
+                    if (List.ListItems != null)
+                        db.SaveItems(List.ListItems);
                 });
 
             Content = vm;

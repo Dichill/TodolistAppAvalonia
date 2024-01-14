@@ -16,16 +16,16 @@ namespace TodolistAppAvalonia.ViewModels
 {
     public class TodoListViewModel : ViewModelBase
     {
-        public TodoListViewModel(IEnumerable<TodoItem> items) {
-            ListItems = new ObservableCollection<TodoItem>(items);
-
+        public TodoListViewModel(IEnumerable<TodoItem>? items)
+        {
+            ListItems = items != null ? new ObservableCollection<TodoItem>(items) : new ObservableCollection<TodoItem>();
             Delete = new RelayCommand((o) =>
             {
-                ListItems.RemoveAt((int)o);
+                ListItems?.RemoveAt((int)o);
             });
         }
 
-        public ObservableCollection<TodoItem> ListItems { get; set; }
+        public ObservableCollection<TodoItem>? ListItems { get; set; }
 
         public RelayCommand Delete { get; set; }
     }
