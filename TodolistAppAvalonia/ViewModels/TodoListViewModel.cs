@@ -37,11 +37,7 @@ namespace TodolistAppAvalonia.ViewModels
             {
                 var db = new TodoListService();
                 var item = ListItems.FirstOrDefault(i => i.id == (int)o);
-                if (item != null)
-                {
-                    item.isChecked = !item.isChecked;
-                    db.SaveItems(ListItems);
-                }
+                db.SaveItems(ListItems);
             });
         }
 

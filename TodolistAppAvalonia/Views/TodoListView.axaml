@@ -18,9 +18,7 @@
             Command="{Binding $parent[Window].DataContext.AddItem}"
             Classes="theme-solid accent"
             Cursor="Hand">Add Item</Button>
-    
-    <TextBlock Text="{Binding GlobalViewModel.HelloWorld}" DockPanel.Dock="Top"/>
-    
+
     <ItemsControl ItemsSource="{Binding ListItems}" Margin="5">
       <ItemsControl.ItemTemplate>
         <DataTemplate>

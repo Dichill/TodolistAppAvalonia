@@ -17,14 +17,9 @@ namespace TodolistAppAvalonia.Services
         {
             try
             {
-                string json = File.ReadAllText("items.json");
-
-                // Deserialize JSON to a list of items
-                List<TodoItem> items = JsonConvert.DeserializeObject<List<TodoItem>>(json);
-
                 Console.WriteLine("Items read from items.json");
 
-                return (IEnumerable<TodoItem>)items;
+                return (IEnumerable<TodoItem>)ReadItemsFromJson();
             }
             catch (Exception ex)
             {
