@@ -9,6 +9,7 @@ using MsBox.Avalonia.ViewModels.Commands;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace TodolistAppAvalonia.ViewModels
 {
@@ -64,6 +65,7 @@ namespace TodolistAppAvalonia.ViewModels
         public void EditItem(object o)
         {
             var vm = new EditItemViewModel(o?.ToString() ?? "");
+            var db = new TodoListService();
 
             Observable.Merge(
                 vm.Ok,
@@ -81,6 +83,9 @@ namespace TodolistAppAvalonia.ViewModels
                     }
 
                     Content = List;
+                    if (i == null) return;
+                    if (List.ListItems != null)
+                        db.SaveItems(List.ListItems);
                 });
 
             Content = vm;

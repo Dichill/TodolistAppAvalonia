@@ -19,6 +19,8 @@
             Classes="theme-solid accent"
             Cursor="Hand">Add Item</Button>
     
+    <TextBlock Text="{Binding GlobalViewModel.HelloWorld}" DockPanel.Dock="Top"/>
+    
     <ItemsControl ItemsSource="{Binding ListItems}" Margin="5">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
@@ -28,6 +30,9 @@
                       Classes="theme-solid accent"
                       IsChecked="{Binding isChecked}"
                       Content="{Binding Description}"
+                      x:CompileBindings="False"
+                      Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.DidTodo}"
+                      CommandParameter="{Binding id}"
                     />
             </StackPanel>
 

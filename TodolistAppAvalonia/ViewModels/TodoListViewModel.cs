@@ -11,22 +11,42 @@ using System.Text;
 using System.Threading.Tasks;
 using TodolistAppAvalonia.Models;
 using MsBox.Avalonia.ViewModels.Commands;
+using TodolistAppAvalonia.Services;
 
 namespace TodolistAppAvalonia.ViewModels
 {
     public class TodoListViewModel : ViewModelBase
     {
+        public GlobalViewModel GlobalViewModel { get; } = GlobalViewModel.Instance;
         public TodoListViewModel(IEnumerable<TodoItem>? items)
         {
+            var db = new TodoListService();
             ListItems = items != null ? new ObservableCollection<TodoItem>(items) : new ObservableCollection<TodoItem>();
+            
             Delete = new RelayCommand((o) =>
             {
-                ListItems?.RemoveAt((int)o);
+                var item = ListItems.FirstOrDefault(i => i.id == (int)o);
+                if (item != null)
+                {
+                    ListItems.Remove(item);
+                    db.SaveItems(ListItems);
+                }
+            });
+
+            DidTodo = new RelayCommand(o =>
+            {
+                var db = new TodoListService();
+                var item = ListItems.FirstOrDefault(i => i.id == (int)o);
+                if (item != null)
+                {
+                    item.isChecked = !item.isChecked;
+                    db.SaveItems(ListItems);
+                }
             });
         }
 
         public ObservableCollection<TodoItem>? ListItems { get; set; }
-
         public RelayCommand Delete { get; set; }
+        public RelayCommand DidTodo { get; set; }
     }
 }
